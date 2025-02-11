@@ -6,6 +6,7 @@ import inquirer from "inquirer";
 
 import { compressFile, decompressFile } from "./utils/compressor";
 import { convertCase } from "./utils/case_conversion";
+import { wordCount } from "./utils/countWords";
 
 //! Header section
 console.log();
@@ -63,6 +64,8 @@ program.action(() => {
           ])
           .then(async (answers) => {
             switch (answers.task) {
+
+              //! Compress a file
               case "Compress a file":
                 const compressAnswers = await inquirer.prompt([
                   {
@@ -84,6 +87,7 @@ program.action(() => {
                 }
                 break;
 
+              //! Decompress a file  
               case "Decompress a file":
                 const decompressAnswers = await inquirer.prompt([
                   {
@@ -107,6 +111,7 @@ program.action(() => {
                 }
                 break;
 
+              //! Convert case of text
               case "Convert case of text":
                 const caseAnswer = await inquirer.prompt([
                   {
@@ -128,6 +133,19 @@ program.action(() => {
                     )}`
                   )
                 );
+                menu();
+                break;
+
+              //! Count words in a text
+              case "Count words in a text":
+                const wordCountAnswer = await inquirer.prompt([
+                  {
+                    type: "input",
+                    name: "text",
+                    message: "Enter the text to count words:",
+                  },
+                ]);
+                console.log(`Word count: ${wordCount(wordCountAnswer.text)}`);
                 menu();
                 break;
             }
