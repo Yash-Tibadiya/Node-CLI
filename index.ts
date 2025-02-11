@@ -6,8 +6,9 @@ import inquirer from "inquirer";
 
 import { compressFile, decompressFile } from "./utils/compressor";
 import { convertCase } from "./utils/case_conversion";
-import { wordCount } from "./utils/countWords";
 import { isPalindrome } from "./utils/isPalindrome";
+import { wordCount } from "./utils/countWords";
+import { fetchJoke } from "./utils/fetchJoke.js";
 
 //! Header section
 console.log();
@@ -171,6 +172,15 @@ program.action(() => {
                         `'${palindromeAnswer.text}' is not a palindrome!`
                       )
                 );
+                menu();
+                break;
+
+              case "Get a Random Joke":
+                const spinner3 = ora(
+                  "Getting a funny joke for you...😂"
+                ).start();
+                const res = await fetchJoke();
+                spinner3.succeed(chalk.italic.yellow(res));
                 menu();
                 break;
             }
