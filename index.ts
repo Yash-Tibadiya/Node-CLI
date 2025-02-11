@@ -7,6 +7,7 @@ import inquirer from "inquirer";
 import { compressFile, decompressFile } from "./utils/compressor";
 import { convertCase } from "./utils/case_conversion";
 import { wordCount } from "./utils/countWords";
+import { isPalindrome } from "./utils/isPalindrome";
 
 //! Header section
 console.log();
@@ -59,12 +60,15 @@ program.action(() => {
                 "Compress a file",
                 "Decompress a file",
                 "Convert case of text",
+                "Count words in a text",
+                "Check if text is a palindrome",
+                "Get a Random Joke",
+                "Exit",
               ],
             },
           ])
           .then(async (answers) => {
             switch (answers.task) {
-
               //! Compress a file
               case "Compress a file":
                 const compressAnswers = await inquirer.prompt([
@@ -87,7 +91,7 @@ program.action(() => {
                 }
                 break;
 
-              //! Decompress a file  
+              //! Decompress a file
               case "Decompress a file":
                 const decompressAnswers = await inquirer.prompt([
                   {
@@ -146,6 +150,27 @@ program.action(() => {
                   },
                 ]);
                 console.log(`Word count: ${wordCount(wordCountAnswer.text)}`);
+                menu();
+                break;
+
+              //! Check if text is a palindrome
+              case "Check if text is a palindrome":
+                const palindromeAnswer = await inquirer.prompt([
+                  {
+                    type: "input",
+                    name: "text",
+                    message: "Enter the text to check for palindrome:",
+                  },
+                ]);
+                console.log(
+                  isPalindrome(palindromeAnswer.text)
+                    ? chalk.greenBright(
+                        `'${palindromeAnswer.text}' is a palindrome!`
+                      )
+                    : chalk.redBright(
+                        `'${palindromeAnswer.text}' is not a palindrome!`
+                      )
+                );
                 menu();
                 break;
             }
