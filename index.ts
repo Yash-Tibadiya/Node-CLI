@@ -175,6 +175,7 @@ program.action(() => {
                 menu();
                 break;
 
+              //! Get a Random Joke
               case "Get a Random Joke":
                 const spinner3 = ora(
                   "Getting a funny joke for you...😂"
@@ -183,6 +184,24 @@ program.action(() => {
                 spinner3.succeed(chalk.italic.yellow(res));
                 menu();
                 break;
+
+              //! Exit
+              case "Exit":
+                inquirer
+                  .prompt([
+                    {
+                      type: "confirm",
+                      name: "exit",
+                      message: "Are you sure you want to exit?",
+                    },
+                  ])
+                  .then((answer) => {
+                    if (answer.exit) {
+                      console.log(chalk.magenta(`Goodbye! ${userName} 🙋🏻‍♂️`));
+                      process.exit(0);
+                    }
+                    menu();
+                  });
             }
           });
       }
