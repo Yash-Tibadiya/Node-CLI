@@ -1,3 +1,4 @@
+import { program } from "commander";
 import chalk from "chalk";
 import figlet from "figlet";
 
@@ -18,3 +19,10 @@ console.log(
   )
 );
 console.log();
+
+program
+  .name("Yash's Node CLI")
+  .description(
+    "Yash's Node CLI is a handy command-line tool for everyday tasks like file compression, string manipulation, and API integration."
+  )
+  .version("1.0.0");
