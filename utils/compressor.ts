@@ -13,4 +13,16 @@ const compressFile = (inputFile: string): boolean => {
   }
 };
 
-export { compressFile };
+const decompressFile = (inputFile: string): boolean => {
+  try {
+    fs.createReadStream(inputFile).pipe(
+      zlib.createGunzip().pipe(fs.createWriteStream(inputFile.slice(0, -3)))
+    );
+    return true;
+  } catch (error) {
+    console.log("Error: ", error);
+    return false;
+  }
+};
+
+export { compressFile, decompressFile };

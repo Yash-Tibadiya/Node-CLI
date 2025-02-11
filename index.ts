@@ -4,7 +4,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 import inquirer from "inquirer";
 
-import { compressFile } from "./utils/compressor";
+import { compressFile, decompressFile } from "./utils/compressor";
 
 //! Header section
 console.log();
@@ -53,9 +53,7 @@ program.action(() => {
               type: "list",
               name: "task",
               message: "What would you like to do?",
-              choices: [
-                "Compress a file",
-              ],
+              choices: ["Compress a file", "Decompress a file"],
             },
           ])
           .then(async (answers) => {
@@ -78,6 +76,29 @@ program.action(() => {
                   }, 2000);
                 } else {
                   spinner.fail("Error compressing file! Please try again.");
+                }
+                break;
+
+              case "Decompress a file":
+                const decompressAnswers = await inquirer.prompt([
+                  {
+                    type: "input",
+                    name: "input",
+                    message: "Enter the input file path:",
+                  },
+                ]);
+                let spinner2 = ora(`Decomporessing the file...`).start();
+                if (decompressFile(decompressAnswers.input)) {
+                  setTimeout(() => {
+                    spinner2.succeed(
+                      chalk.green("Your file was decompressed successfully!")
+                    );
+                    menu();
+                  }, 2000);
+                } else {
+                  spinner2.fail(
+                    chalk.red("Error decompressing file! Please try again.")
+                  );
                 }
                 break;
             }
