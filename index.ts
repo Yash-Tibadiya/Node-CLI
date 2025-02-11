@@ -5,6 +5,7 @@ import figlet from "figlet";
 import inquirer from "inquirer";
 
 import { compressFile, decompressFile } from "./utils/compressor";
+import { convertCase } from "./utils/case_conversion";
 
 //! Header section
 console.log();
@@ -53,7 +54,11 @@ program.action(() => {
               type: "list",
               name: "task",
               message: "What would you like to do?",
-              choices: ["Compress a file", "Decompress a file"],
+              choices: [
+                "Compress a file",
+                "Decompress a file",
+                "Convert case of text",
+              ],
             },
           ])
           .then(async (answers) => {
@@ -100,6 +105,30 @@ program.action(() => {
                     chalk.red("Error decompressing file! Please try again.")
                   );
                 }
+                break;
+
+              case "Convert case of text":
+                const caseAnswer = await inquirer.prompt([
+                  {
+                    type: "input",
+                    name: "text",
+                    message: "Enter the text to convert:",
+                  },
+                  {
+                    type: "confirm",
+                    name: "upper",
+                    message: "Convert to upper case?",
+                    default: true,
+                  },
+                ]);
+                console.log(
+                  chalk.italic.greenBright(
+                    `The converted text is: ${chalk.italic.whiteBright(
+                      convertCase(caseAnswer.text, caseAnswer.upper)
+                    )}`
+                  )
+                );
+                menu();
                 break;
             }
           });
