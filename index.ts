@@ -4,10 +4,10 @@ import chalk from "chalk";
 import figlet from "figlet";
 import inquirer from "inquirer";
 
-import { compressFile, decompressFile } from "./utils/compressor";
-import { convertCase } from "./utils/case_conversion";
-import { isPalindrome } from "./utils/isPalindrome";
-import { wordCount } from "./utils/countWords";
+import { compressFile, decompressFile } from "./utils/compressor.js";
+import { convertCase } from "./utils/case_conversion.js";
+import { isPalindrome } from "./utils/isPalindrome.js";
+import { wordCount } from "./utils/countWords.js";
 import { fetchJoke } from "./utils/fetchJoke.js";
 
 //! Header section
